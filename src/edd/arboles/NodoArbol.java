@@ -5,7 +5,8 @@
  */
 package edd.arboles;
 
-import edd.listas.ListaDoble;
+import edd.listasdobles.AlumnoArbol;
+import edd.listasdobles.ListaDobleArbol;
 
 /**
  *
@@ -13,15 +14,15 @@ import edd.listas.ListaDoble;
  */
 public class NodoArbol
 {
+
     private String mGrupo;
-    private ListaDoble mLD = new ListaDoble();
     private NodoArbol mIzq;
     private NodoArbol mDer;
+    ListaDobleArbol mLA = new ListaDobleArbol();
 
-    public NodoArbol(String mGrupo, ListaDoble mLD)
+    public NodoArbol(String mGrupo)
     {
         this.mGrupo = mGrupo;
-        this.mLD = mLD;
         this.mIzq = null;
         this.mDer = null;
     }
@@ -40,22 +41,6 @@ public class NodoArbol
     public void setmGrupo(String mGrupo)
     {
         this.mGrupo = mGrupo;
-    }
-
-    /**
-     * @return the mLD
-     */
-    public ListaDoble getmLD()
-    {
-        return mLD;
-    }
-
-    /**
-     * @param mLD the mLD to set
-     */
-    public void setmLD(ListaDoble mLD)
-    {
-        this.mLD = mLD;
     }
 
     /**
@@ -89,6 +74,12 @@ public class NodoArbol
     {
         this.mDer = mDer;
     }
+
+    public void insertAlumno(AlumnoArbol mObj)
+    {
+        mLA.insertar(mObj);
+    }
+
     
-    
+
 }

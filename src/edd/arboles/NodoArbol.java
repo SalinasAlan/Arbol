@@ -75,11 +75,40 @@ public class NodoArbol
         this.mDer = mDer;
     }
 
-    public void insertAlumno(AlumnoArbol mObj)
+    public void insertarAlumno(AlumnoArbol mObj)
     {
         mLA.insertar(mObj);
     }
 
-    
+    public void eliminar(String mNombre, String mGrupoE)
+    {
+        AlumnoArbol mAlumElim;
+        if (mGrupo.compareTo(mGrupoE) == 0)
+        {
+            mAlumElim = mLA.eliminar(mNombre);
+            System.out.println("\nSe elimino a: " + mAlumElim.getmNombre()
+                    + "\nNo. de control: " + mAlumElim.getmNoControl()
+                    + "\nGrupo: " + mAlumElim.getmGrupo()
+                    + "\nPromedio: " + mAlumElim.getmProm());
+        }
+    }
 
+    public void modificar(String mNombre, int mNoControl)
+    {
+        mLA.modificar(mNombre, mNoControl);
+    }
+
+    public void desp()
+    {
+        AlumnoArbol aux = mLA.getmInicio();
+        while (aux != null)
+        {
+
+            System.out.println("\n Nombre del alumno: " + aux.getmNombre()
+                    + "\n No. de control: " + aux.getmNoControl()
+                    + "\n Grupo: " + aux.getmGrupo()
+                    + "\n Promedio: " + aux.getmProm());
+            aux = aux.getmSigLA();
+        }
+    }
 }

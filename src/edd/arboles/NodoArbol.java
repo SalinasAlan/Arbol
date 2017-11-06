@@ -5,7 +5,6 @@
  */
 package edd.arboles;
 
-import edd.listasdobles.AlumnoArbol;
 import edd.listasdobles.ListaDobleArbol;
 
 /**
@@ -18,7 +17,7 @@ public class NodoArbol
     private String mGrupo;
     private NodoArbol mIzq;
     private NodoArbol mDer;
-    ListaDobleArbol mLA = new ListaDobleArbol();
+    private ListaDobleArbol mLA = new ListaDobleArbol();
 
     public NodoArbol(String mGrupo)
     {
@@ -75,40 +74,21 @@ public class NodoArbol
         this.mDer = mDer;
     }
 
-    public void insertarAlumno(AlumnoArbol mObj)
+    /**
+     * @return the mLA
+     */
+    public ListaDobleArbol getmLA()
     {
-        mLA.insertar(mObj);
+        return mLA;
     }
 
-    public void eliminar(String mNombre, String mGrupoE)
+    /**
+     * @param mLA the mLA to set
+     */
+    public void setmLA(ListaDobleArbol mLA)
     {
-        AlumnoArbol mAlumElim;
-        if (mGrupo.compareTo(mGrupoE) == 0)
-        {
-            mAlumElim = mLA.eliminar(mNombre);
-            System.out.println("\nSe elimino a: " + mAlumElim.getmNombre()
-                    + "\nNo. de control: " + mAlumElim.getmNoControl()
-                    + "\nGrupo: " + mAlumElim.getmGrupo()
-                    + "\nPromedio: " + mAlumElim.getmProm());
-        }
+        this.mLA = mLA;
     }
 
-    public void modificar(String mNombre, int mNoControl)
-    {
-        mLA.modificar(mNombre, mNoControl);
-    }
-
-    public void desp()
-    {
-        AlumnoArbol aux = mLA.getmInicio();
-        while (aux != null)
-        {
-
-            System.out.println("\n Nombre del alumno: " + aux.getmNombre()
-                    + "\n No. de control: " + aux.getmNoControl()
-                    + "\n Grupo: " + aux.getmGrupo()
-                    + "\n Promedio: " + aux.getmProm());
-            aux = aux.getmSigLA();
-        }
-    }
+    
 }

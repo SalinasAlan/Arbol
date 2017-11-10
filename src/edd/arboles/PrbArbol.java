@@ -28,18 +28,35 @@ public class PrbArbol
             System.out.println("\n1. Insertar grupo"
                     + "\n2. Eliminar grupo"
                     + "\n3. Modificar grupo"
-                    + "\n4. opciones de grupo"
-                    + "\n5. Salir");
+                    + "\n4. Desplegar arbol"
+                    + "\n5. opciones de grupo"
+                    + "\n6. Salir");
             op = Integer.parseInt(mLeer.readLine());
             switch (op)
             {
                 case 1:
+                    System.out.println("\nIngrese el nombre del grupo");
+                    String mGrupo = mLeer.readLine();
+                    NodoArbol mNodoArb = new NodoArbol(mGrupo);
+                    if (mAr.vacio() == true)
+                    {
+                        mAr.setR(mAr.insertarNodo(mNodoArb, mAr.getR()));
+                    } else if (mAr.busquedaDeNodo(mGrupo, mAr.getR()) == null)
+                    {
+                        mAr.setR(mAr.insertarNodo(mNodoArb, mAr.getR()));
+                    } else
+                    {
+                        System.out.println("\nEl grupo ya existe");
+                    }
                     break;
                 case 2:
                     break;
                 case 3:
                     break;
                 case 4:
+                    mAr.preOrden(mAr.getR());
+                    break;
+                case 5:
                     int op2;
                     do
                     {
@@ -52,34 +69,32 @@ public class PrbArbol
                         switch (op2)
                         {
                             case 1:
-                                System.out.println("Ingrese el nombre del alumno");
+                                System.out.println("\nIngrese el nombre del alumno");
                                 String mNombre = mLeer.readLine();
                                 System.out.println("Ingrese el No. de control");
                                 int mNoControl = Integer.parseInt(mLeer.readLine());
                                 System.out.println("Ingrese el Grupo");
-                                String mGrupo = mLeer.readLine();
+                                mGrupo = mLeer.readLine();
                                 System.out.println("Ingrese el promedio");
                                 int mProm = Integer.parseInt(mLeer.readLine());
                                 AlumnoArbol mObj = new AlumnoArbol(mNombre, mProm, mNoControl, mGrupo);
-                                NodoArbol mAuxRArb = mAr.getR();
-                                mAr.insertarAlumno(mObj, mGrupo, mAuxRArb);
+                                mAr.insertarAlumno(mObj, mGrupo, mAr.getR());
                                 break;
                             case 2:
                                 if (mAr.getR() != null)
                                 {
-                                    System.out.println("Ingrese el nombre del alumno a eliminar");
+                                    System.out.println("\nIngrese el nombre del alumno a eliminar");
                                     mNombre = mLeer.readLine();
                                     System.out.println("Ingrese el Grupo");
                                     mGrupo = mLeer.readLine();
-                                    mAuxRArb = mAr.getR();
-                                    mAr.eliminarAlumno(mNombre, mGrupo, mAuxRArb);
+                                    mAr.eliminarAlumno(mNombre, mGrupo);
                                 } else
                                 {
                                     System.out.println("No hay grupos");
                                 }
                                 break;
                             case 3:
-                                System.out.println("Ingrese el nombre del alumno");
+                                System.out.println("\nIngrese el nombre del alumno");
                                 mNombre = mLeer.readLine();
                                 System.out.println("Ingrese el No. de control");
                                 mNoControl = Integer.parseInt(mLeer.readLine());
@@ -87,14 +102,12 @@ public class PrbArbol
                                 mGrupo = mLeer.readLine();
                                 System.out.println("Ingrese el promedio");
                                 mProm = Integer.parseInt(mLeer.readLine());
-                                mAuxRArb = mAr.getR();
-                                mAr.modificarAlumno(mNombre, mGrupo, mNoControl, mProm, mAuxRArb);
+                                mAr.modificarAlumno(mNombre, mGrupo, mNoControl, mProm);
                                 break;
                             case 4:
-                                System.out.println("Ingrese el Grupo");
+                                System.out.println("\nIngrese el Grupo");
                                 mGrupo = mLeer.readLine();
-                                mAuxRArb = mAr.getR();
-                                mAr.despAlumnos(mGrupo, mAuxRArb);
+                                mAr.despAlumnos(mGrupo, mAr.getR());
                                 break;
                             case 5:
                                 break;
@@ -104,13 +117,13 @@ public class PrbArbol
                         }
                     } while (op2 != 5);
                     break;
-                case 5:
+                case 6:
                     System.out.println("Adios");
                     break;
                 default:
                     System.out.println("Opcion no valida");
                     break;
             }
-        } while (op != 5);
+        } while (op != 6);
     }
 }

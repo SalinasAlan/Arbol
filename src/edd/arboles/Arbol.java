@@ -38,38 +38,103 @@ public class Arbol
         this.r = r;
     }
 
-    public void insertNodo(NodoArbol mNodo)
+    /**
+     * Método vacio
+     *
+     * @return
+     */
+    public boolean vacio()
     {
-        if (mNodo == null)
-        {
+        return r == null;
+    }
 
+    /**
+     * Método recursivo insertar, ingresa un nodo en el árbol
+     *
+     * @param mNodo es el nodo que se insertará
+     * @param mRaiz es la raiz de arbol donde se insertará el nodo
+     * @return la raiz del árbol (o el nodo al que se avanzó)
+     */
+    public NodoArbol insertarNodo(NodoArbol mNodo, NodoArbol mRaiz)
+    {
+        if (mRaiz == null)
+        {
+            return mNodo;
+        } else
+        {
+            if (mRaiz.getmGrupo().compareTo(mNodo.getmGrupo()) > 0)
+            {
+                mRaiz.setmIzq(insertarNodo(mNodo, mRaiz.getmIzq()));
+            } else
+            {
+                mRaiz.setmDer(insertarNodo(mNodo, mRaiz.getmDer()));
+            }
+
+            return mRaiz;
+        }
+
+    }
+
+    public void enOrden(NodoArbol r)
+    {
+        if (r != null)
+        {
+            enOrden(r.getmIzq());
+            System.out.print(r.getmGrupo() + "\t");
+            enOrden(r.getmDer());
         }
     }
-    
+
+    public void preOrden(NodoArbol r)
+    {
+        if (r != null)
+        {
+            System.out.print(r.getmGrupo() + "\t");
+            preOrden(r.getmIzq());
+            preOrden(r.getmDer());
+        }
+    }
+
+    public void posOrden(NodoArbol r)
+    {
+        if (r != null)
+        {
+            posOrden(r.getmIzq());
+            posOrden(r.getmDer());
+            System.out.print(r.getmGrupo() + "\t");
+        }
+    }
+
     public NodoArbol busquedaDeNodo(String mGrupo, NodoArbol mNodo)
     {
-        if (mNodo != null)
+        boolean b = false;
+        while (b != true && mNodo != null)
         {
             if (mNodo.getmGrupo().compareTo(mGrupo) == 0)
             {
-                busquedaDeNodo(mGrupo, mNodo.getmIzq());
-                busquedaDeNodo(mGrupo, mNodo.getmDer());
+                b = true;
+                return mNodo;
+            } else if (mNodo.getmGrupo().compareTo(mGrupo) > 0)
+            {
+                mNodo = mNodo.getmIzq();
+            } else
+            {
+                mNodo = mNodo.getmDer();
             }
-            return mNodo;
         }
         return null;
     }
 
-    public void insertarAlumno(AlumnoArbol mObj, String mGrupo, NodoArbol mNodo)
+    public void insertarAlumno(AlumnoArbol mObj, String mGrupo, NodoArbol mRaiz)
     {
-        ListaDobleArbol mListaAux = busquedaDeNodo(mGrupo, mNodo).getmLA();
+        ListaDobleArbol mListaAux = busquedaDeNodo(mGrupo, mRaiz).getmLA();
         mListaAux.insertar(mObj);
     }
 
-    public void eliminarAlumno(String mNombre, String mGrupoE, NodoArbol mNodo)
+    public void eliminarAlumno(String mNombre, String mGrupoE)
     {
         AlumnoArbol mAlumElim;
-        ListaDobleArbol mListaAux = busquedaDeNodo(mGrupoE, mNodo).getmLA();
+        ListaDobleArbol mListaAux = busquedaDeNodo(mGrupoE, r).getmLA();
         mAlumElim = mListaAux.eliminar(mNombre);
         System.out.println("\nSe elimino a: " + mAlumElim.getmNombre()
                 + "\nNo. de control: " + mAlumElim.getmNoControl()
@@ -78,15 +143,15 @@ public class Arbol
 
     }
 
-    public void modificarAlumno(String mNombre, String mGrupo, int mNoControl, int mProm, NodoArbol mNodo)
+    public void modificarAlumno(String mNombre, String mGrupo, int mNoControl, int mProm)
     {
-        ListaDobleArbol mListaAux = busquedaDeNodo(mGrupo, mNodo).getmLA();
+        ListaDobleArbol mListaAux = busquedaDeNodo(mGrupo, r).getmLA();
         mListaAux.modificar(mNombre, mNoControl, mGrupo, mProm);
     }
 
-    public void despAlumnos(String mGrupo, NodoArbol mNodo)
+    public void despAlumnos(String mGrupo, NodoArbol mRaiz)
     {
-        ListaDobleArbol mListaAux = busquedaDeNodo(mGrupo, mNodo).getmLA();
+        ListaDobleArbol mListaAux = busquedaDeNodo(mGrupo, mRaiz).getmLA();
         AlumnoArbol aux = mListaAux.getmInicio();
         while (aux != null)
         {

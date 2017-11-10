@@ -17,11 +17,12 @@ public class NodoArbol
     private String mGrupo;
     private NodoArbol mIzq;
     private NodoArbol mDer;
-    private ListaDobleArbol mLA = new ListaDobleArbol();
+    private ListaDobleArbol mLA;
 
     public NodoArbol(String mGrupo)
     {
         this.mGrupo = mGrupo;
+        mLA = new ListaDobleArbol();
         this.mIzq = null;
         this.mDer = null;
     }

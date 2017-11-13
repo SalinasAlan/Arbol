@@ -74,7 +74,70 @@ public class Arbol
         }
 
     }
+    
+    public NodoArbol elimina(String mGrupo, NodoArbol r, Arbol a)
+    {
+        if (r != null)
+        {
+            if (!r.getmGrupo().equals(mGrupo))
+            {
+                if (r.getmGrupo().compareTo(mGrupo) > 0)
+                {
+                    r.setmIzq(elimina(mGrupo, r.getmIzq(), a));
+                } else
+                {
+                    r.setmDer(elimina(mGrupo, r.getmDer(), a));
+                }
+            } else
+            {
+                a.setR(r);
+                if (r.getmIzq()== null && r.getmDer()== null)
+                {
+                    return null;
+                } else
+                {
+                    if (!(r.getmIzq()!= null && r.getmDer()!=null))
+                    {
+                        if (r.getmIzq()!= null)
+                        {
+                            return r.getmIzq();
+                        }else
+                        {
+                            return r.getmDer();
+                        }
+                    }else
+                    {
+                        NodoArbol se, s2;
+                        if (r.getmDer().getmIzq()== null)
+                        {
+                            se = r.getmDer();
+                        }else
+                        {
+                            s2 = sucesor(r.getmDer());
+                            se = s2.getmIzq();
+                            s2.setmIzq(se.getmDer());
+                            se.setmDer(r.getmDer());
+                        }
+                        se.setmIzq(r.getmIzq());
+                        r = se;
+                    }
+                }
+            }
+        }
+        return r;
+    }
 
+     public NodoArbol sucesor(NodoArbol r)
+    {
+        if (r.getmIzq().getmIzq()!=null)
+        {
+            return sucesor(r.getmIzq());
+        }else
+        {
+            return r;
+        }
+    }
+    
     public void enOrden(NodoArbol r)
     {
         if (r != null)

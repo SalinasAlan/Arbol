@@ -74,7 +74,7 @@ public class Arbol
         }
 
     }
-    
+
     public NodoArbol elimina(String mGrupo, NodoArbol r, Arbol a)
     {
         if (r != null)
@@ -91,53 +91,50 @@ public class Arbol
             } else
             {
                 a.setR(r);
-                if (r.getmIzq()== null && r.getmDer()== null)
+                if (r.getmIzq() == null && r.getmDer() == null)
                 {
                     return null;
+                } else if (!(r.getmIzq() != null && r.getmDer() != null))
+                {
+                    if (r.getmIzq() != null)
+                    {
+                        return r.getmIzq();
+                    } else
+                    {
+                        return r.getmDer();
+                    }
                 } else
                 {
-                    if (!(r.getmIzq()!= null && r.getmDer()!=null))
+                    NodoArbol se, s2;
+                    if (r.getmDer().getmIzq() == null)
                     {
-                        if (r.getmIzq()!= null)
-                        {
-                            return r.getmIzq();
-                        }else
-                        {
-                            return r.getmDer();
-                        }
-                    }else
+                        se = r.getmDer();
+                    } else
                     {
-                        NodoArbol se, s2;
-                        if (r.getmDer().getmIzq()== null)
-                        {
-                            se = r.getmDer();
-                        }else
-                        {
-                            s2 = sucesor(r.getmDer());
-                            se = s2.getmIzq();
-                            s2.setmIzq(se.getmDer());
-                            se.setmDer(r.getmDer());
-                        }
-                        se.setmIzq(r.getmIzq());
-                        r = se;
+                        s2 = sucesor(r.getmDer());
+                        se = s2.getmIzq();
+                        s2.setmIzq(se.getmDer());
+                        se.setmDer(r.getmDer());
                     }
+                    se.setmIzq(r.getmIzq());
+                    r = se;
                 }
             }
         }
         return r;
     }
 
-     public NodoArbol sucesor(NodoArbol r)
+    public NodoArbol sucesor(NodoArbol r)
     {
-        if (r.getmIzq().getmIzq()!=null)
+        if (r.getmIzq().getmIzq() != null)
         {
             return sucesor(r.getmIzq());
-        }else
+        } else
         {
             return r;
         }
     }
-    
+
     public void enOrden(NodoArbol r)
     {
         if (r != null)
@@ -225,6 +222,23 @@ public class Arbol
                     + "\n Promedio: " + aux.getmProm());
             aux = aux.getmSigLA();
         }
+    }
+
+    public boolean buscarAlumEnLista(String mNombre, int mNoControl, String mGrupo, NodoArbol mRaiz)
+    {
+        ListaDobleArbol mListaAux = busquedaDeNodo(mGrupo, mRaiz).getmLA();
+        AlumnoArbol aux = mListaAux.getmInicio();
+        while (aux != null)
+        {
+            if (aux.getmNombre().compareTo(mNombre) == 0 && aux.getmNoControl() == mNoControl)
+            {
+                return true;
+            } else
+            {
+                aux = aux.getmSigLA();
+            }
+        }
+        return false;
     }
 
 }
